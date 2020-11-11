@@ -68,13 +68,18 @@ function Unregister-CbSensor {
         do {
             $response = $Host.UI.PromptForChoice($title, $msg, $options, $default)
             if ($response -eq 0) {
-                $uninstallResults = (Invoke-WebRequest -Uri ($baseUrl + "device_actions") -Method Post -Headers $headers -Body $uninstallBody -ContentType "application/json")
-                if ($uninstallResults.StatusCode -eq "204") {
-                    Write-Output "SUCCESS: Device $($searchResults.results.name) has been deregistered."
-                } else {
-                    Write-Output "WARNING: Unexpected status code received"
-                    Write-Output "Status Code: $($uninstallResults.StatusCode)"
-                    Write-Output "Description: $($uninstallResults.StatusDescription)"
+                try {
+                    $uninstallResults = (Invoke-WebRequest -Uri ($baseUrl + "device_actions") -Method Post -Headers $headers -Body $uninstallBody -ContentType "application/json")
+                    if ($uninstallResults.StatusCode -eq "204") {
+                        Write-Output "SUCCESS: Device $($searchResults.results.name) has been deregistered."
+                    } else {
+                        Write-Output "WARNING: Unexpected status code received"
+                        Write-Output "Status Code: $($uninstallResults.StatusCode)"
+                        Write-Output "Description: $($uninstallResults.StatusDescription)"
+                    }
+                }
+                catch {
+                    throw $_.Exception
                 }
                 break
             }
@@ -99,16 +104,20 @@ function Unregister-CbSensor {
         do {
             $response = $Host.UI.PromptForChoice($title, $msg, $options, $default)
             if ($response -eq 0) {
-                $uninstallResults = (Invoke-WebRequest -Uri ($baseUrl + "device_actions") -Method Post -Headers $headers -Body $uninstallBody -ContentType "application/json")
-                if ($uninstallResults.StatusCode -eq "204") {
-                    Write-Output "SUCCESS: Device $($searchResults.results.name) has been deregistered."
-                } else {
-                    Write-Output "WARNING: Unexpected status code received"
-                    Write-Output "Status Code: $($uninstallResults.StatusCode)"
-                    Write-Output "Description: $($uninstallResults.StatusDescription)"
+                try {
+                    $uninstallResults = (Invoke-WebRequest -Uri ($baseUrl + "device_actions") -Method Post -Headers $headers -Body $uninstallBody -ContentType "application/json")
+                    if ($uninstallResults.StatusCode -eq "204") {
+                        Write-Output "SUCCESS: Device $($searchResults.results.name) has been deregistered."
+                    } else {
+                        Write-Output "WARNING: Unexpected status code received"
+                        Write-Output "Status Code: $($uninstallResults.StatusCode)"
+                        Write-Output "Description: $($uninstallResults.StatusDescription)"
+                    }
                 }
-                break
-            }
+                catch {
+                    throw $_.Exception
+                }
+                break            }
         } until ($response -eq 1)
     }
 }
