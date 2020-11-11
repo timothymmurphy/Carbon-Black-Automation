@@ -3,7 +3,7 @@
     .SYNOPSIS
     Deregisters device within Carbon Black console. Intended to be run manually, logic is built in for user confirmation and multiple devices resulting from a search.
     
-    Enter your API Secret Key, API ID, and Org Key on lines 19, 20, and 22, respectively.
+    Enter your API Secret Key, API ID, and Org Key to the corresponding variables.
 
     .PARAMETER ComputerName
     The device name or sensor ID of the device being targeted.
