@@ -3,7 +3,7 @@
     .SYNOPSIS
     Removes unregistered device within Carbon Black console.
     
-    Enter your API Secret Key, API ID, and Org Key to the corresponding variables.
+    Enter your API Secret Key, API ID, Org Key, and environment to the corresponding variables.
     
     .PARAMETER ComputerName
     The device name or sensor ID of the device being targeted.
@@ -21,7 +21,8 @@ function Remove-CbSensor {
     $apiID = "API ID HERE"
     $apiKey = "$apiSecret/$apiID"
     $orgKey = "ORG KEY HERE"
-    $baseUrl = "https://defense-prod05.conferdeploy.net/appservices/v6/orgs/$orgKey/"
+    $environment = "defense-prod05"
+    $baseUrl = "https://$environment.conferdeploy.net/appservices/v6/orgs/$orgKey/"
     $headers = @{
         'X-Auth-Token'= "$apiKey"
         'Content-Type' = 'application/json'
