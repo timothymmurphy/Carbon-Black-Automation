@@ -117,7 +117,8 @@ function Unregister-CbSensor {
                 catch {
                     throw $_.Exception
                 }
-                break            }
+                break            
+            }
         } until ($response -eq 1)
     }
 }
