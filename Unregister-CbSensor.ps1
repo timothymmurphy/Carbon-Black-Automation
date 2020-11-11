@@ -107,7 +107,6 @@ function Unregister-CbSensor {
                     Write-Output "Status Code: $($uninstallResults.StatusCode)"
                     Write-Output "Description: $($uninstallResults.StatusDescription)"
                 }
-                Write-Output $uninstallResults.StatusCode
                 break
             }
         } until ($response -eq 1)
