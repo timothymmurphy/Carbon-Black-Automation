@@ -63,7 +63,7 @@ function Get-CbDeviceStatus {
             } | ConvertTo-Json
 
             $searchResults = (Invoke-RestMethod -Uri ($baseUrl + "devices/_search") -Method Post -Headers $headers -Body $searchBody -ContentType "application/json")
-            Write-Output $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, os_version, uninstall_code, last_contact_time
+            Write-Output $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, policy_name, os_version, uninstall_code, last_contact_time
         } else {
             $searchBody = @{
                 "query" = $ComputerName
@@ -71,7 +71,7 @@ function Get-CbDeviceStatus {
             
             try {
                 $searchResults = (Invoke-RestMethod -Uri ($baseUrl + "devices/_search") -Method Post -Headers $headers -Body $searchBody -ContentType "application/json")    
-                Write-Output $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, os_version, uninstall_code, last_contact_time    
+                Write-Output $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, policy_name, os_version, uninstall_code, last_contact_time    
             }
             catch {
                 throw $_.Exception
@@ -100,7 +100,7 @@ function Get-CbDeviceStatus {
                 if ($searchResults.num_found -eq '0') {
                     $nonexistentDevices.Add($device,"NOT_FOUND")
                 }
-                $attributes = $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, os_version, uninstall_code, last_contact_time    
+                $attributes = $searchResults.results | Select-Object -Property name, id, login_user_name, status, sensor_version, policy_name, os_version, uninstall_code, last_contact_time    
                 $devicesInfo += $attributes
             }
             catch {
